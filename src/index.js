@@ -1,19 +1,19 @@
 
-async function ArregloPokemones( callback ) {
-  let pokemones;
+// async function ArregloPokemones( callback ) {
+//   let pokemones;
 
-  await getPokemones().then(resp => { pokemones = resp.results })
-  pokemones.forEach(async element => {
-    await getPokemonDetails(element.url).then(resp => {
-      element.id = resp.id;
-      element.type = resp.types;
-      element.img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${element.id}.png`
-    });
-    callback(element);
-  });
-  return pokemones;
+//   await getPokemones().then(resp => { pokemones = resp.results })
+//   pokemones.forEach(async element => {
+//     await getPokemonDetails(element.url).then(resp => {
+//       element.id = resp.id;
+//       element.type = resp.types;
+//       element.img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${element.id}.png`
+//     });
+//     callback(element);
+//   });
+//   return pokemones;
 
-}
+// }
 
 async function getPokemones() {
   return axios.get('https://pokeapi.co/api/v2/pokemon/')
@@ -22,7 +22,6 @@ async function getPokemones() {
 async function getPokemonDetails(url) {
   return axios.get(url)
 }
-
 
 function ArregloPokemones() {
   getPokemones().then((resp) => {
@@ -33,11 +32,11 @@ function ArregloPokemones() {
 
 
 async function cargarData(pokemones) {
-  console.log(pokemones.length)
-  console.log(pokemones[0].data.sprites.other['official-artwork'].front_default)
-  console.log(pokemones[0].data.id)
-  console.log(pokemones[0].data.name)
-  console.log(pokemones[0].data.types[0].type['name'])
+  // console.log(pokemones.length)
+  // console.log(pokemones[0].data.sprites.other['official-artwork'].front_default)
+  // console.log(pokemones[0].data.id)
+  // console.log(pokemones[0].data.name)
+  // console.log(pokemones[0].data.types[0].type['name'])
 
   for (let index1 = 0; index1 < pokemones.length; index1++){
     var getParentElement = document.getElementById('pokemones')
