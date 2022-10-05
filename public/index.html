@@ -40,8 +40,26 @@
             </div>
         </div>
     </div>
-
+    <div class="spinner" id="spinner"></div>
+    <script>
+        
+        (async () => {
+            if ("loading" in HTMLImageElement.prototype) {
+                const images = document.querySelectorAll("img.lazyload");
+                images.forEach((img) => {
+                    img.src = img.dataset.src;
+                });
+            } else {
+            // Importamos dinámicamente la libreria `lazysizes`
+            const lazySizesLib = await import("/lazysizes.min.js");
+            // Se inicia lazysizes (lee el atributo `data-src` y la clase `lazyload`)
+            lazySizes.init();
+            }
+        })();
+    </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
     <script src="/src/servicios.js"></script>
     <script src="/src/index.js"></script>
