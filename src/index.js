@@ -14,9 +14,46 @@
 //   return pokemones;
 
 // }
+var url = 'https://pokeapi.co/api/v2/pokemon/';
+// window.addEventListener("load",() => {
+//   window.addEventListener("scroll", () => {
+//     let body = document.querySelector("body")
+//     let windowBottom = window.pageYOffset + window.innerHeight;
+//     // console.log('windowBottom',windowBottom);
+//     document.querySelectorAll(".contenido").forEach(el => {
+//       let objectBottom = el.offsetTop + el.offsetHeight;
+//       // Math.ceil(objectBottom) >= Math.ceil(windowBottom)
+//       if (window.innerHeight + window.scrollY  >= body.innerHeight) {
+//         // ArregloPokemones();
+//         console.log('LLegue al final');
+//       }else{
+//         console.log('nose');
+//       }
+//     });
+//   })
+// });
+
+
+ let elm =document.querySelector('.contenido');
+ const spinner = document.getElementById('spinner');
+ let flag=true;
+addEventListener('scroll', function(){
+    if ((window.innerHeight + window.scrollY) >= elm.offsetHeight){
+      if(flag){
+        flag=false;
+        spinner.style.display = 'block'
+        setTimeout(() => {
+          spinner.style.display = 'none';
+          ArregloPokemones()
+        }, 3000);
+      }
+    }else{
+      flag=true;
+    }
+});
 
 async function getPokemones() {
-  return axios.get('https://pokeapi.co/api/v2/pokemon/')
+  return axios.get(url)
 }
 
 async function getPokemonDetails(url) {
@@ -25,6 +62,8 @@ async function getPokemonDetails(url) {
 
 function ArregloPokemones() {
   getPokemones().then((resp) => {
+    console.log(resp.data.next);
+    url = resp.data.next;
     let _arrayPromesas = resp.data.results.map((element) => getPokemonDetails(element.url))
     Promise.all(_arrayPromesas).then((response) => cargarData(response))
   })
@@ -45,6 +84,8 @@ async function cargarData(pokemones) {
     createPokeCard.classList.add('card', 'col-md-3', 'p-2')
 
     const imgPokeCard = document.createElement('img');
+    imgPokeCard.classList.add('lazyload')
+    imgPokeCard.setAttribute("loading","lazy")
     imgPokeCard.src = pokemones[index1].data.sprites.other['official-artwork'].front_default
     createPokeCard.appendChild(imgPokeCard)
 
