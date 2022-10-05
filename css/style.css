@@ -7,3 +7,21 @@
 body {
   font-family: "Roboto", sans-serif;
 }
+
+/* Colores types */
+
+.planta {
+  background-color: green;
+}
+.fuego{
+  background-color: orange;
+}
+.agua{
+  background-color: cornflowerblue;
+}
+.veneno{
+  background-color: blueviolet;
+}
+.roca{
+  background-color: burlywood;
+}
