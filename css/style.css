@@ -5,5 +5,69 @@
   box-sizing: border-box;
 }
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Raleway', sans-serif;
+}
+h5{
+  color: rgb(129, 126, 126);
+}
+/* Colores types */
+.normal{
+  background-color:grey;
+}
+.fighting{
+  background-color:chocolate ;
+}
+.flying{
+  background-color: steelblue;
+}
+.poison{
+  background-color: mediumslateblue;
+}
+.ground{
+ background-color:peru;
+}
+.rock{
+  background-color: brown;
+}
+.bug{
+  background-color: green;
+}
+.ghost{
+  background-color: darkblue;
+}
+.steel{
+  background-color: cadetblue;
+}
+.fire{
+  background-color: tomato;
+}
+.water{
+  background-color: cornflowerblue;
+}
+.grass {
+  background-color: greenyellow;
+}
+.electric{
+  background-color: yellow;
+}
+.psychic{
+  background-color: violet;
+}
+.ice{
+  background-color:lightblue;
+}
+.dragon{
+  background-color:darkcyan;
+}
+.dark{
+  background-color:darkslategrey;
+}
+.fairy{
+  background-color: indianred;
+}
+.unknown{
+  background-color: black;
+}
+.shadow{
+  background-color: black;
 }
