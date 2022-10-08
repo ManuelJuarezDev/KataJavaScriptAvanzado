@@ -46,22 +46,6 @@
     <div class="d-flex justify-content-center m-5">
         <div class="pokeball" id="spinner"></div>
     </div>
-    <script>
-        
-        (async () => {
-            if ("loading" in HTMLImageElement.prototype) {
-                const images = document.querySelectorAll("img.lazyload");
-                images.forEach((img) => {
-                    img.src = img.dataset.src;
-                });
-            } else {
-            // Importamos dinámicamente la libreria `lazysizes`
-            const lazySizesLib = await import("/lazysizes.min.js");
-            // Se inicia lazysizes (lee el atributo `data-src` y la clase `lazyload`)
-            lazySizes.init();
-            }
-        })();
-    </script>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.2/axios.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
