@@ -87,6 +87,9 @@ async function cargarData(pokemones) {
     imgPokeCard.classList.add('lazyload')
     imgPokeCard.setAttribute("loading","lazy")
     imgPokeCard.src = pokemones[index1].data.sprites.other['official-artwork'].front_default
+    imgPokeCard.addEventListener('click', function (e) {
+      modal.open(pokemones[index1].data)
+    })
     createPokeCard.appendChild(imgPokeCard)
 
     const bodyPokeCard = document.createElement('div')
