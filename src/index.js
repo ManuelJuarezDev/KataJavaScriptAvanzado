@@ -34,6 +34,47 @@ var url = 'https://pokeapi.co/api/v2/pokemon/';
 // });
 
 
+
+
+
+
+
+//Funcion para cargar las imagenes al inicio
+function loadImagesInit(){
+  let $imagenes = document.querySelectorAll("img.lazy-loading");
+  if($imagenes.length===20){
+    for (const element of $imagenes) {
+      element.src = element.dataset.src;
+    }
+  }
+  
+}
+
+function loadLazyLoading(){
+  let $imagenes = document.querySelectorAll("img.lazy-loading");
+  if ("undefined" !== typeof IntersectionObserver) {
+      let observador = new IntersectionObserver(function (entradas) {
+          for (let i = 0; i < entradas.length; entradas++) {
+              let entrada = entradas[i];
+              if (entrada.intersectionRatio > 0) {
+                  let imagen = entrada.target;
+                  imagen.src = imagen.dataset.src;
+                  observador.unobserve(imagen);
+              }
+          }
+      });
+      for (const element of $imagenes) {
+          observador.observe(element);
+      }
+  } else {
+      //En caso de que no exista la API
+      for (const element of $imagenes) {
+          element.src = element.dataset.src;
+      }
+  }
+}
+
+
  let elm =document.querySelector('.contenido');
  const spinner = document.getElementById('spinner');
  let flag=true;
@@ -46,6 +87,9 @@ addEventListener('scroll', function(){
           spinner.style.display = 'none';
           ArregloPokemones()
         }, 3000);
+        this.setTimeout(() =>{
+          loadLazyLoading();
+        })
       }
     }else{
       flag=true;
@@ -62,10 +106,9 @@ async function getPokemonDetails(url) {
 
 function ArregloPokemones() {
   getPokemones().then((resp) => {
-    console.log(resp.data.next);
     url = resp.data.next;
     let _arrayPromesas = resp.data.results.map((element) => getPokemonDetails(element.url))
-    Promise.all(_arrayPromesas).then((response) => cargarData(response))
+    Promise.all(_arrayPromesas).then((response) => cargarData(response)).then(loadImagesInit)
   })
 }
 
@@ -84,9 +127,13 @@ async function cargarData(pokemones) {
     createPokeCard.classList.add('card', 'col-md-3', 'p-2')
 
     const imgPokeCard = document.createElement('img');
-    imgPokeCard.classList.add('lazyload')
-    imgPokeCard.setAttribute("loading","lazy")
-    imgPokeCard.src = pokemones[index1].data.sprites.other['official-artwork'].front_default
+    imgPokeCard.classList.add('lazy-loading')
+    // imgPokeCard.setAttribute("loading","lazy")
+    // imgPokeCard.src = pokemones[index1].data.sprites.other['official-artwork'].front_default
+    imgPokeCard.setAttribute("data-src",pokemones[index1].data.sprites.other['official-artwork'].front_default)
+    imgPokeCard.addEventListener('click', function (e) {
+      modal.open(pokemones[index1].data)
+    })
     createPokeCard.appendChild(imgPokeCard)
 
     const bodyPokeCard = document.createElement('div')
