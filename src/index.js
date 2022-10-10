@@ -33,34 +33,22 @@ var url = 'https://pokeapi.co/api/v2/pokemon/';
 //   })
 // });
 
-// Cargar el Lazy Loading
-// document.addEventListener("DOMContentLoaded", loadLazyLoading)
 
-//Cargar Lazy Loading
-// function loadLazyLoading(){
-//   let $imagenes = document.querySelectorAll("img.lazy-loading");
-//     if ("undefined" !== typeof IntersectionObserver) {
-//         let observador = new IntersectionObserver(function (entradas) {
-//             for (let i = 0; i < entradas.length; entradas++) {
-//                 var entrada = entradas[i];
-//                 if (entrada.intersectionRatio > 0) {
-//                     let imagen = entrada.target;
-//                     imagen.src = imagen.dataset.src;//src = data-src
-//                     console.log("Cargada: ", imagen.src)
-//                     observador.unobserve(imagen);
-//                 }
-//             }
-//         });
-//         for (const element of $imagenes) {
-//             observador.observe(element);
-//         }
-//     } else {
-//         //En caso de que no exista la API
-//         for (const element of $imagenes) {
-//             element.src = element.dataset.src;
-//         }
-//     }
-// }
+
+
+
+
+
+//Funcion para cargar las imagenes al inicio
+function loadImagesInit(){
+  let $imagenes = document.querySelectorAll("img.lazy-loading");
+  if($imagenes.length===20){
+    for (const element of $imagenes) {
+      element.src = element.dataset.src;
+    }
+  }
+  
+}
 
 function loadLazyLoading(){
   let $imagenes = document.querySelectorAll("img.lazy-loading");
@@ -70,7 +58,7 @@ function loadLazyLoading(){
               let entrada = entradas[i];
               if (entrada.intersectionRatio > 0) {
                   let imagen = entrada.target;
-                  console.log("Cargada: ", imagen.src)
+                  imagen.src = imagen.dataset.src;
                   observador.unobserve(imagen);
               }
           }
@@ -120,7 +108,7 @@ function ArregloPokemones() {
   getPokemones().then((resp) => {
     url = resp.data.next;
     let _arrayPromesas = resp.data.results.map((element) => getPokemonDetails(element.url))
-    Promise.all(_arrayPromesas).then((response) => cargarData(response))
+    Promise.all(_arrayPromesas).then((response) => cargarData(response)).then(loadImagesInit)
   })
 }
 
@@ -141,7 +129,8 @@ async function cargarData(pokemones) {
     const imgPokeCard = document.createElement('img');
     imgPokeCard.classList.add('lazy-loading')
     // imgPokeCard.setAttribute("loading","lazy")
-    imgPokeCard.src = pokemones[index1].data.sprites.other['official-artwork'].front_default
+    // imgPokeCard.src = pokemones[index1].data.sprites.other['official-artwork'].front_default
+    imgPokeCard.setAttribute("data-src",pokemones[index1].data.sprites.other['official-artwork'].front_default)
     imgPokeCard.addEventListener('click', function (e) {
       modal.open(pokemones[index1].data)
     })
