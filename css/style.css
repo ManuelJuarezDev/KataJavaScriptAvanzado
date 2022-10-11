@@ -114,5 +114,14 @@ h5{
   margin-top: 5%;
 }
 
+.card {
+  z-index: 999;
+}
+#pokemones > .card:hover {
 
+  transition: transform 0.2s;
+  transform: scale(1.01);
+  box-shadow: rgba(0, 0, 0, 0.35) 5px 5px 15px ; 
+  background-color: #aaaaaa1c;
+}
 
