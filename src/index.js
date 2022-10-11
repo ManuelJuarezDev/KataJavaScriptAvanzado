@@ -1,43 +1,4 @@
-
-// async function ArregloPokemones( callback ) {
-//   let pokemones;
-
-//   await getPokemones().then(resp => { pokemones = resp.results })
-//   pokemones.forEach(async element => {
-//     await getPokemonDetails(element.url).then(resp => {
-//       element.id = resp.id;
-//       element.type = resp.types;
-//       element.img = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${element.id}.png`
-//     });
-//     callback(element);
-//   });
-//   return pokemones;
-
-// }
 var url = 'https://pokeapi.co/api/v2/pokemon/';
-// window.addEventListener("load",() => {
-//   window.addEventListener("scroll", () => {
-//     let body = document.querySelector("body")
-//     let windowBottom = window.pageYOffset + window.innerHeight;
-//     // console.log('windowBottom',windowBottom);
-//     document.querySelectorAll(".contenido").forEach(el => {
-//       let objectBottom = el.offsetTop + el.offsetHeight;
-//       // Math.ceil(objectBottom) >= Math.ceil(windowBottom)
-//       if (window.innerHeight + window.scrollY  >= body.innerHeight) {
-//         // ArregloPokemones();
-//         console.log('LLegue al final');
-//       }else{
-//         console.log('nose');
-//       }
-//     });
-//   })
-// });
-
-
-
-
-
-
 
 //Funcion para cargar las imagenes al inicio
 function loadImagesInit(){
@@ -114,12 +75,6 @@ function ArregloPokemones() {
 
 
 async function cargarData(pokemones) {
-  // console.log(pokemones.length)
-  // console.log(pokemones[0].data.sprites.other['official-artwork'].front_default)
-  // console.log(pokemones[0].data.id)
-  // console.log(pokemones[0].data.name)
-  // console.log(pokemones[0].data.types[0].type['name'])
-
   for (let index1 = 0; index1 < pokemones.length; index1++){
     var getParentElement = document.getElementById('pokemones')
 
@@ -128,8 +83,6 @@ async function cargarData(pokemones) {
 
     const imgPokeCard = document.createElement('img');
     imgPokeCard.classList.add('lazy-loading')
-    // imgPokeCard.setAttribute("loading","lazy")
-    // imgPokeCard.src = pokemones[index1].data.sprites.other['official-artwork'].front_default
     imgPokeCard.setAttribute("data-src",pokemones[index1].data.sprites.other['official-artwork'].front_default)
     imgPokeCard.addEventListener('click', function (e) {
       modal.open(pokemones[index1].data)
@@ -166,5 +119,4 @@ async function cargarData(pokemones) {
 
 }
 
-// consultarPokemones().then( resp => cargarData(resp))
 ArregloPokemones( );
