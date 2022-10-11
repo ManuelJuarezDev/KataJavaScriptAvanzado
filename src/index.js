@@ -11,27 +11,34 @@ function loadImagesInit(){
   
 }
 
-function loadLazyLoading(){
-  let $imagenes = document.querySelectorAll("img.lazy-loading");
-  if ("undefined" !== typeof IntersectionObserver) {
-      let observador = new IntersectionObserver(function (entradas) {
-          for (let i = 0; i < entradas.length; entradas++) {
-              let entrada = entradas[i];
-              if (entrada.intersectionRatio > 0) {
-                  let imagen = entrada.target;
-                  imagen.src = imagen.dataset.src;
-                  observador.unobserve(imagen);
-              }
-          }
-      });
-      for (const element of $imagenes) {
-          observador.observe(element);
-      }
+function loadLazyLoading() {
+  
+  let options = {
+    root: document.querySelector('#contenido'),
+    rootMargin: '10px',
+    threshold: 0
+  }
+  let $imagenes = document.querySelectorAll('img.lazy-loading')
+
+  if ('undefined' !== typeof IntersectionObserver) {
+    let observador = new IntersectionObserver(function (entradas) {
+
+      entradas.forEach((element) => {
+         if (element.intersectionRatio > 0) {
+          element.target.src = element.target.dataset.src
+          element.target.dataset.src = ''
+          observador.unobserve(element.target)
+        }
+      })},options)
+    for (const element of $imagenes) {
+      if (element.dataset.src != '')
+        observador.observe(element)
+    }
   } else {
-      //En caso de que no exista la API
-      for (const element of $imagenes) {
-          element.src = element.dataset.src;
-      }
+    //En caso de que no exista la API
+    for (const element of $imagenes) {
+      element.src = element.dataset.src
+    }
   }
 }
 
